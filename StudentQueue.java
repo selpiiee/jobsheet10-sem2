@@ -41,7 +41,7 @@ public class StudentQueue {
         } 
         int i = front;
         while (i != rear) {
-            data[i].print();
+            data[i].print();;
             i = (i+1) % max;
         }
         data[i].print();
@@ -63,7 +63,13 @@ public class StudentQueue {
             System.out.println("Queue is full!!!");
             return;
         }
-        rear = (rear+1) % max;
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear+1) % max;
+        }
+
         data[rear] = dt;
         size++;
         System.out.printf("%s is successfully added at index %d\n", dt.name, rear);
@@ -75,8 +81,22 @@ public class StudentQueue {
             return null;
         }
         Student dt = data[front];
-        front = (front + 1) % max;
         size--;
+
+        if (size == 0) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % max;
+        }
         return dt;
     }
+
+    void viewRear() {
+    if(!isEmpty()) {
+        System.out.println("Rear data: ");
+        data[rear].print();
+    } else {
+        System.out.println("Queue is empty!!!");
+    }
+}
 }
